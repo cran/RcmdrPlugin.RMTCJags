@@ -1,0 +1,15 @@
+# When the plug-in is loaded, these menus are merged with the standard Rcmdr menus
+
+# last modified: 05 December 2014 by M.G. Correia
+
+#type     menu/item  operation/parent                          label                  command/menu                  activation    				install?
+ menu  RMTCJagsMenu           topMenu                             ""                            ""                          "" 		                              "" 
+ item  RMTCJagsMenu           command         "Setting up MTC model"                   RunMTCModel          "activeDataSetP()"       				      ""
+ item  RMTCJagsMenu           command                "Summary model"                  SummaryModel          "activeDataSetP()"       				      ""
+ item  RMTCJagsMenu           command      "Check for best strategy"                     BestStrat          "activeDataSetP()"       				      ""
+ item  RMTCJagsMenu         separator                             ""                            ""                          ""       				      ""
+ item  RMTCJagsMenu           command                "Density plots"                  DensityPlots          "activeDataSetP()"       				      ""
+ item  RMTCJagsMenu           command                  "Forest Plot"                    ForestPlot          "activeDataSetP()"       				      ""
+ item  RMTCJagsMenu           command            "Relationship plot"                  Relationship          "activeDataSetP()"       				      ""
+ item  RMTCJagsMenu           command            "Gelman-Rubin plot"               GelmanRubinPlot          "activeDataSetP()"       				      ""
+ item       topMenu           cascade                   "R MTC Jags"                  RMTCJagsMenu	   		    ""	             "packageAvailable('rjags')"
