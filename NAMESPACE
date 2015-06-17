@@ -1,5 +1,5 @@
 # last modified 2013-01-19
 
-import(Rcmdr, runjags, rmeta, igraph, coda, rjags)
+import(Rcmdr, runjags, rmeta, igraph, coda)
 importFrom(tcltk, tkbutton)
 exportPattern("^[^\\.]")
