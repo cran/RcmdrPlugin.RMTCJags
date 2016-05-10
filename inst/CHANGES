@@ -1,3 +1,11 @@
+Version 1.0-2
+
+- Fixed rjags dependency
+- Fixed counters in 'for' statments
+
+-----------//-----------//-----------//-----------
+
+
 Version 1.0-1
 
 - Fixed variables and objects names

@@ -22,7 +22,7 @@
 # marcelo.goulart@inc.saude.gov.br
 # mgoulart.inc@gmail.com
 
-# last modified: 2014-12-05 by M.G. Correia
+# last modified: 2015-09-08 by M.G. Correia
 
 .onAttach <- function(libname, pkgname){
     if (!interactive()) return()
@@ -204,7 +204,7 @@ RunMTCModel <- function(){
 		Teste <- paste("Model <- 'model{","for(i in 1:NS){","w[i,1] <-0","delta[i,t[i,1]]<-0","mu[i] ~ dnorm(0,.0001)","for (k in 1:na[i])  {",
 	        "r[i,k] ~ dbin(p[i,t[i,k]],n[i,k])","logit(p[i,t[i,k]])<-mu[i] + delta[i,t[i,k]] }","for (k in 2:na[i]) {",
                 "delta[i,t[i,k]] ~ dnorm(md[i,t[i,k]],taud[i,t[i,k]])","md[i,t[i,k]] <-  d[t[i,k]] - d[t[i,1]]  + sw[i,k]",
-                "taud[i,t[i,k]] <- tau *2*(k-1)/k","w[i,k] <- (delta[i,t[i,k]]  - d[t[i,k]] + d[t[i,1]])","sw[i,k] <-sum(w[i,1:k-1])/(k-1) }}", 					 
+                "taud[i,t[i,k]] <- tau *2*(k-1)/k","w[i,k] <- (delta[i,t[i,k]]  - d[t[i,k]] + d[t[i,1]])","sw[i,k] <-sum(w[i,1:(k-1)])/(k-1) }}", 					 
                 "d[1]<-0","for (k in 2:NT){d[k] ~ dnorm(0,.0001) }","sd~dunif(0,2)","tau<-1/pow(sd,2)",output_mA,
 		"for (k in 1:NT)   { logit(T[k])<- mA  +d[k] }}'", sep="\n")
 		doItAndPrint(Teste)
@@ -317,6 +317,92 @@ BestStrat <- function(){
     tkgrid(buttonsFrame, sticky="w")
     dialogSuffix()
 	                }
+
+#BestStrat <- function(){
+
+#   initializeDialog(title=gettextRcmdr("Check for best strategy"))
+#    modelName <- tclVar(paste("MTCModel.", "1", sep = ""))
+#    modelFrame <- tkframe(top)    
+#    model <- ttkentry(modelFrame, width = "20", textvariable = modelName)
+    #defaults <- list(TreatVar="")
+    #detailVariable <- tclVar("1")
+    #detailCheckBox <- ttkcheckbutton(optionsFrame, variable=detailVariable)
+    #TreatVar <- tclVar(dialog.values$TreatVar)
+    #TreatEntry <- tkentry(top, width="6", textvariable=TreatVar)
+#    radioButtons(name="outcome", buttons=c("favor","unfavor"), labels=gettextRcmdr(c("Favorable", "Unfavoravle")), title=gettextRcmdr("Outcome"))     
+#
+#    onOK <- function(){
+#        modelValue <- trim.blanks(tclvalue(modelName))
+#        closeDialog()      
+#        if (!is.valid.name(modelValue)){
+#      	    errorCondition(recall=BestStrat, message=sprintf(gettextRcmdr('"%s" is not a valid name.'), modelValue), model=TRUE)
+#     	    return()
+#    	    }
+#	outcome <- tclvalue(outcomeVariable)
+#	
+#       command_stack <- paste('base <- do.call(rbind.data.frame, ',modelValue,'_aux$mcmc)', sep = "")
+#	justDoIt(command_stack)
+#
+#	if (outcome == 'favor'){
+#	justDoIt(paste('max_base <- apply(base,1,max)',sep = ""))
+#	justDoIt(paste('p_best <- ifelse(base == max_base, 1, 0)',sep = ""))
+#	}
+#	
+#	if (outcome == 'unfavor'){
+#	justDoIt(paste('min_base <- apply(base,1,min)',sep = ""))
+#	justDoIt(paste('p_best <- ifelse(base == min_base, 1, 0)',sep = ""))
+#	}
+#	command <- paste('summary(p_best)', sep="")
+#       doItAndPrint(command)
+#
+	#if (tclvalue(detailVariable) == "1")
+	#{
+	#
+	#if (outcome == 'favor'){
+	#
+	#for (n in 1:Treat-1){
+	#for (y in 2:Treat){
+	#justDoIt(paste('Diffs <- (teste[,',n,'] - teste[,',y,'])',sep = ""))
+	#justDoIt(paste('table(do.call(rbind,lapply(Diffs,function(x) x<=0)))',sep = ""))
+	#}
+	#}
+	#
+	#for (y in 1:Treat){
+	#	justDoIt(paste('exp(quantile(do.call(rbind,MTCModel.1$mcmc)[,',y,'],c(0.1, 0.25, 0.5, 0.75, 0.9)))', sep = ""))
+	#	justDoIt(paste('table(do.call(rbind,lapply(MTCModel.1$mcmc,function(x) x<=0))[,',y,'])', sep = ""))
+	#		  }
+	#
+	#}
+	#
+	#
+	#
+	#if (outcome == 'unfavor'){
+	#	for (n in 1:Treat-1){
+	#		for (y in 2:Treat){
+	#			justDoIt(paste('Diffs <- (teste[,',n,'] - teste[,',y,'])',sep = ""))
+	#			justDoIt(paste('table(do.call(rbind,lapply(Diffs,function(x) x>=0)))',sep = ""))
+	#				  }
+	#			    }
+	#			 }
+	#
+	#
+	#
+	#}
+#	
+#	
+#	tkfocus(CommanderWindow())
+#
+#	               }
+#
+#    OKCancelHelp(helpSubject="run.jags", reset="BestStrat")
+#    tkgrid(labelRcmdr(modelFrame, text = gettextRcmdr("Enter a name for existing model:")), model, sticky = "w")
+#    tkgrid(labelRcmdr(optionsFrame, text=gettextRcmdr("Detailed analysis:")), detailCheckBox, sticky="w")
+    #tkgrid(tklabel(top, text="Number of treatments"), TreatEntry, sticky="e")	
+#    tkgrid(modelFrame, sticky = "w") 
+#    tkgrid(outcomeFrame, sticky="w")  
+#    tkgrid(buttonsFrame, sticky="w")
+#    dialogSuffix()
+#	                }
 
 #------------//------------//------------//------------//------------//------------//------------//------------//------------//------------//------------//------------//------------
 

@@ -1,5 +1,7 @@
-# last modified 2013-01-19
+# last modified 2016-05-10
 
-import(Rcmdr, runjags, rmeta, igraph, coda)
+import(Rcmdr, runjags, rmeta, igraph, coda, rjags)
+importFrom("graphics", "plot")
+importFrom("stats", "complete.cases")
 importFrom(tcltk, tkbutton)
 exportPattern("^[^\\.]")
